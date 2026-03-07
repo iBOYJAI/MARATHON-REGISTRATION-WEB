@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - Tamil Marathon 2026</title>
+    <link rel="stylesheet" href="index.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Parallax Background -->
+    <div class="parallax-bg"></div>
+    <div class="overlay"></div>
+
+    <nav class="navbar">
+        <a href="home.html" class="logo">
+            <i class="fa-solid fa-person-running"></i> Tamil<span>Marathon</span>
+        </a>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="#" onclick="logout()" style="color: var(--secondary);">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </nav>
+
+    <main style="padding: 8rem 5% 4rem; max-width: 1200px; margin: 0 auto;">
+
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h1 style="font-family: var(--font-display); font-size: 3.5rem; margin: 0;">
+                Welcome, <span id="userName" style="color: var(--secondary);">Runner</span>!
+            </h1>
+            <p style="color: #999; margin-top: 0.5rem;">Your Tamil Marathon 2026 Dashboard</p>
+        </div>
+
+        <!-- Countdown -->
+        <div style="background: linear-gradient(145deg, rgba(0, 229, 255, 0.1), rgba(20, 20, 20, 0.9)); 
+                padding: 2rem; border-radius: 16px; border: 2px solid var(--secondary); 
+                margin-bottom: 3rem; text-align: center;">
+            <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 1rem;">
+                Race Day Countdown
+            </h2>
+            <div id="userCountdown" class="countdown-box" style="justify-content: center;">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+
+        <!-- User Details -->
+        <div style="background: rgba(20, 20, 20, 0.9); padding: 3rem; border-radius: 16px;
+                border: 1px solid var(--glass-border); margin-bottom: 2rem;">
+            <h2 style="font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 2rem;">
+                <i class="fa-solid fa-id-card"></i> My Registration Details
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+
+                <div>
+                    <p style="color: #999; margin: 0; font-size: 0.9rem;">Full Name</p>
+                    <h3 style="margin: 0.5rem 0 0; font-size: 1.5rem;" id="detailName">-</h3>
+                </div>
+
+                <div>
+                    <p style="color: #999; margin: 0; font-size: 0.9rem;">Email</p>
+                    <h3 style="margin: 0.5rem 0 0; font-size: 1.5rem;" id="detailEmail">-</h3>
+                </div>
+
+                <div>
+                    <p style="color: #999; margin: 0; font-size: 0.9rem;">Age</p>
+                    <h3 style="margin: 0.5rem 0 0; font-size: 1.5rem;" id="detailAge">-</h3>
+                </div>
+
+                <div>
+                    <p style="color: #999; margin: 0; font-size: 0.9rem;">Category</p>
+                    <h3 style="margin: 0.5rem 0 0; font-size: 1.5rem; color: var(--primary);" id="detailCategory">-</h3>
+                </div>
+
+                <div>
+                    <p style="color: #999; margin: 0; font-size: 0.9rem;">Gender</p>
+                    <h3 style="margin: 0.5rem 0 0; font-size: 1.5rem;" id="detailGender">-</h3>
+                </div>
+
+                <div>
+                    <p style="color: #999; margin: 0; font-size: 0.9rem;">Registration Date</p>
+                    <h3 style="margin: 0.5rem 0 0; font-size: 1.5rem;" id="detailDate">-</h3>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="text-align: center;">
+            <a href="success.html" class="btn-neon" style="background: var(--secondary); margin-right: 1rem;">
+                <i class="fa-solid fa-ticket"></i> View My Ticket
+            </a>
+            <a href="events.html" class="btn-neon" style="background: transparent; border: 2px solid var(--primary);">
+                <i class="fa-solid fa-calendar"></i> View Events
+            </a>
+        </div>
+
+    </main>
+
+    <script>
+        // Check authentication
+        if (!sessionStorage.getItem('user_logged_in')) {
+            window.location.href = 'user-login.html';
+        }
+
+        // Load user data
+        const userData = JSON.parse(sessionStorage.getItem('user_data') || '{}');
+
+        if (userData.fullname) {
+            document.getElementById('userName').textContent = userData.fullname;
+            document.getElementById('detailName').textContent = userData.fullname;
+            document.getElementById('detailEmail').textContent = userData.email;
+            document.getElementById('detailAge').textContent = userData.age;
+            document.getElementById('detailCategory').textContent = userData.category;
+            document.getElementById('detailGender').textContent = userData.gender;
+
+            const date = new Date(userData.timestamp || Date.now()).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('detailDate').textContent = date;
+        }
+
+        // Countdown timer
+        const raceDate = new Date('2026-01-25T06:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = raceDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('userCountdown').innerHTML = `
+        <div class="time-unit">
+          <span class="time-val">${days}</span>
+          <span class="time-label">Days</span>
+        </div>
+        <div class="time-unit">
+          <span class="time-val">${hours}</span>
+          <span class="time-label">Hours</span>
+        </div>
+        <div class="time-unit">
+          <span class="time-val">${minutes}</span>
+          <span class="time-label">Mins</span>
+        </div>
+        <div class="time-unit">
+          <span class="time-val">${seconds}</span>
+          <span class="time-label">Secs</span>
+        </div>
+      `;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        function logout() {
+            sessionStorage.removeItem('user_logged_in');
+            sessionStorage.removeItem('user_email');
+            sessionStorage.removeItem('user_data');
+            window.location.href = 'user-login.html';
+        }
+    </script>
+
+</body>
+
+</html>

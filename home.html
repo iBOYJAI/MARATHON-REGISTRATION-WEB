@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tamil Marathon 2026 - Run for Culture</title>
+  <link rel="stylesheet" href="index.css?v=2">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    // Auth Check
+    if (!sessionStorage.getItem('user_logged_in') && !sessionStorage.getItem('admin_logged_in')) {
+      window.location.href = 'index.html';
+    }
+  </script>
+</head>
+
+<body>
+
+  <!-- Parallax Background -->
+  <div class="parallax-bg"></div>
+  <div class="overlay"></div>
+
+  <nav class="navbar">
+    <a href="home.html" class="logo">
+      <i class="fa-solid fa-person-running"></i> Tamil<span>Marathon</span>
+    </a>
+    <div class="nav-links">
+      <a href="home.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="register.html">Register</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin-login.html" style="color: var(--primary);">
+        <i class="fa-solid fa-shield-halved"></i> Admin
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Tamil Marathon<br><span>2026</span></h1>
+      <p>Push Your Limits. Embrace the Culture. Join the Legacy.</p>
+
+      <a href="register.html" class="btn-neon">
+        Register For Race
+      </a>
+
+      <!-- Countdown Module -->
+      <div id="countdown" class="countdown-box">
+        <!-- Injected via app.js -->
+      </div>
+    </section>
+
+    <!-- Highlights Gallery -->
+    <section id="gallery">
+      <h2 class="section-title">Past Highlights</h2>
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Injected via app.js -->
+      </div>
+    </section>
+
+    <!-- Features/Stats -->
+    <section style="background: rgba(10,10,10,0.8); padding: 5rem 0; width: 100%;">
+      <div
+        style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; max-width: 1200px; margin: 0 auto; text-align: center;">
+        <div>
+          <i class="fa-solid fa-trophy" style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+          <h3 style="font-family: var(--font-display); font-size: 2rem;">₹10 Lakhs</h3>
+          <p>Prize Pool</p>
+        </div>
+        <div>
+          <i class="fa-solid fa-users" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+          <h3 style="font-family: var(--font-display); font-size: 2rem;">5,000+</h3>
+          <p>Participants</p>
+        </div>
+        <div>
+          <i class="fa-solid fa-medal" style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+          <h3 style="font-family: var(--font-display); font-size: 2rem;">Certified</h3>
+          <p>AIMS Course</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

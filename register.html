@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Tamil Marathon 2026</title>
+  <link rel="stylesheet" href="index.css?v=2">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Register Page Specific UV Styles - Inline to ensure load */
+    .register-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 6rem auto 2rem;
+      padding: 0 5%;
+    }
+
+    .form-panel {
+      background: linear-gradient(145deg, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.95));
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 20px rgba(255, 77, 0, 0.1);
+      padding: 2rem;
+      border-radius: 16px;
+    }
+
+    .side-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .mini-gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .mini-gallery img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px solid var(--secondary);
+      box-shadow: 0 0 15px var(--secondary-glow);
+      transition: transform 0.3s;
+    }
+
+    .mini-gallery img:hover {
+      transform: scale(1.02);
+    }
+
+    .uv-title {
+      font-family: 'Teko', sans-serif;
+      font-size: 3.5rem;
+      color: #fff;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0 var(--primary);
+    }
+
+    @media (max-width: 900px) {
+      .register-layout {
+        grid-template-columns: 1fr;
+        margin-top: 5rem;
+      }
+
+      .mini-gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .mini-gallery img {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Parallax Background -->
+  <div class="parallax-bg"></div>
+  <div class="overlay"></div>
+
+  <nav class="navbar">
+    <a href="home.html" class="logo">
+      <i class="fa-solid fa-person-running"></i> Tamil<span>Marathon</span>
+    </a>
+    <div class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="register.html" class="active">Register</a>
+      <a href="events.html">Events</a>
+    </div>
+  </nav>
+
+  <main class="register-layout">
+
+    <!-- Left: Registration Form -->
+    <section class="form-panel animate-in">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 class="uv-title">Join The Race</h2>
+        <p style="color: #ccc;">Secure your spot in the 2026 Legacy Run.</p>
+      </div>
+
+      <form id="registrationForm" novalidate>
+
+        <div class="form-group">
+          <label for="fullname" class="form-label">Full Name</label>
+          <div style="position:relative">
+            <input type="text" id="fullname" class="form-control" placeholder="Enter your full name">
+            <i class="fa-solid fa-user form-icon"></i>
+          </div>
+          <div class="error-msg" id="error-fullname"><i class="fa-solid fa-circle-exclamation"></i> Required</div>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <div style="position:relative">
+            <input type="email" id="email" class="form-control" placeholder="you@example.com">
+            <i class="fa-solid fa-envelope form-icon"></i>
+          </div>
+          <div class="error-msg" id="error-email"><i class="fa-solid fa-circle-exclamation"></i> Invalid email</div>
+        </div>
+
+        <div class="form-group">
+          <label for="age" class="form-label">Age</label>
+          <div style="position:relative">
+            <input type="number" id="age" class="form-control" placeholder="18" min="10" max="100">
+            <i class="fa-solid fa-calendar form-icon"></i>
+          </div>
+          <div class="error-msg" id="error-age"><i class="fa-solid fa-circle-exclamation"></i> Age 10-100</div>
+        </div>
+
+        <div class="form-group">
+          <label for="category" class="form-label">Race Category</label>
+          <div style="position:relative">
+            <select id="category" class="form-control">
+              <option value="" disabled selected>Select distance</option>
+              <option value="5K">5K Challenge</option>
+              <option value="10K">10K Endurance</option>
+              <option value="Half">Half Marathon</option>
+              <option value="Full">Full Marathon</option>
+            </select>
+            <i class="fa-solid fa-road form-icon"></i>
+          </div>
+          <div class="error-msg" id="error-category"><i class="fa-solid fa-circle-exclamation"></i> Required</div>
+        </div>
+
+        <div class="form-group">
+          <label for="gender" class="form-label">Gender</label>
+          <div style="position:relative">
+            <select id="gender" class="form-control">
+              <option value="" disabled selected>Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+            <i class="fa-solid fa-venus-mars form-icon"></i>
+          </div>
+          <div class="error-msg" id="error-gender"><i class="fa-solid fa-circle-exclamation"></i> Required</div>
+        </div>
+
+        <!-- Preview Box -->
+        <div id="previewBox"
+          style="background: rgba(0, 229, 255, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid var(--secondary); display: none;">
+          <h4 style="color: var(--secondary); margin-bottom: 0.5rem; text-transform: uppercase;">Ticket Preview</h4>
+          <div id="previewContent" style="color: #fff; font-family: monospace;"></div>
+        </div>
+
+        <button type="submit" class="btn-neon" style="width: 100%; border-radius: 8px;">
+          Confirm Registration
+        </button>
+      </form>
+    </section>
+
+    <!-- Right: UV Gallery (Showing 2 Images) -->
+    <aside class="side-panel animate-in" style="animation-delay: 0.2s;">
+      <div>
+        <h3 class="uv-title" style="font-size: 2.5rem; margin-bottom: 1rem;">Why Run?</h3>
+        <p style="font-size: 1.2rem; line-height: 1.6; color: #ddd;">
+          Experience the electric atmosphere of Chennai's biggest night run.
+          Be part of the glow, the energy, and the movement.
+        </p>
+      </div>
+
+      <div class="mini-gallery">
+        <!-- Image 1 -->
+        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=400&fit=crop" alt="Marathon Start">
+        <!-- Image 2 -->
+        <img src="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?w=600&h=400&fit=crop"
+          alt="Runners at Night">
+      </div>
+
+      <div style="background: rgba(0,0,0,0.5); padding: 1.5rem; border-left: 4px solid var(--secondary);">
+        <i class="fa-solid fa-quote-left" style="color: var(--secondary); font-size: 1.5rem;"></i>
+        <p style="margin: 0.5rem 0 0; font-style: italic;">
+          "The night run was absolutely magical. The neon lights and the crowd energy were unmatched!"
+        </p>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

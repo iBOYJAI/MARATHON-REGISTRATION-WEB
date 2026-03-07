@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Architecture & Systems Engineering - Tamil Marathon 2026</title>
+    <style>
+        :root {
+            --bg: #030303;
+            --card-bg: rgba(15, 15, 15, 0.95);
+            --primary: #ff5e00;
+            --secondary: #00f2ff;
+            --accent: #7d00ff;
+            --text-main: #f0f0f0;
+            --text-muted: #777;
+            --border: rgba(255, 255, 255, 0.08);
+            --neon-glow: 0 0 15px rgba(0, 242, 255, 0.2);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background-image:
+                radial-gradient(circle at 10% 10%, rgba(255, 94, 0, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(0, 242, 255, 0.05) 0%, transparent 40%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: left;
+            border-left: 4px solid var(--primary);
+            padding-left: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .doc-id {
+            color: var(--primary);
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .section {
+            margin-bottom: 6rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+
+        .section-header .line {
+            height: 1px;
+            flex-grow: 1;
+            background: linear-gradient(to right, var(--secondary), transparent);
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        .diagram-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: var(--neon-glow);
+            overflow-x: auto;
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* SVG Class Styles */
+        .node-rect {
+            fill: #111;
+            stroke: #444;
+            stroke-width: 1.5;
+        }
+
+        .node-round {
+            fill: #111;
+            stroke: var(--secondary);
+            stroke-width: 2;
+            rx: 20;
+            ry: 20;
+        }
+
+        .node-diamond {
+            fill: #1b1b1b;
+            stroke: var(--primary);
+            stroke-width: 2;
+        }
+
+        .node-circle {
+            fill: #111;
+            stroke: var(--accent);
+            stroke-width: 2;
+        }
+
+        .node-data {
+            fill: transparent;
+            stroke: var(--secondary);
+            stroke-width: 2;
+            stroke-dasharray: 4;
+        }
+
+        .arrow-line {
+            stroke: #555;
+            stroke-width: 1.5;
+            marker-end: url(#arrow);
+        }
+
+        .text-header {
+            fill: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            text-anchor: middle;
+        }
+
+        .text-normal {
+            fill: #ccc;
+            font-size: 12px;
+            text-anchor: middle;
+        }
+
+        .text-tiny {
+            fill: #888;
+            font-size: 10px;
+            text-anchor: middle;
+        }
+
+        .marker-color {
+            fill: #555;
+        }
+
+        /* Grid info */
+        .technical-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .tech-card {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .tech-card h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+
+        .tech-card p {
+            font-size: 0.9rem;
+            color: #888;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Advanced System Architecture</h1>
+            <div class="doc-id">TM2026-TECH-DOC / VER-2.1.0</div>
+            <p style="color: #666;">Complex Logical Data Flow & Entity Relationship Mapping</p>
+        </div>
+
+        <!-- 1. DFD LEVEL 1 - DATA TRANSFORMATION -->
+        <div class="section">
+            <div class="section-header">
+                <h2>1. Data Flow Diagram (DFD Level 1)</h2>
+                <div class="line"></div>
+            </div>
+            <p class="section-desc">This high-detail DFD illustrates the localized data processing environment, showing
+                how participant data is validated, transformed, and indexed within the Browser environment.</p>
+            <div class="diagram-box">
+                <svg viewBox="0 0 1000 500">
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"
+                            markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" class="marker-color" />
+                        </marker>
+                    </defs>
+
+                    <!-- Entities -->
+                    <rect x="20" y="200" width="120" height="60" class="node-rect" />
+                    <text x="80" y="235" class="text-header">USER / APPLICANT</text>
+
+                    <!-- Process 1: Input Validation -->
+                    <circle cx="250" cy="230" r="45" class="node-circle" />
+                    <text x="250" y="225" class="text-header">1.1</text>
+                    <text x="250" y="240" class="text-normal">Validation</text>
+
+                    <!-- Process 2: Data Indexing -->
+                    <circle cx="450" cy="230" r="45" class="node-circle" />
+                    <text x="450" y="225" class="text-header">1.2</text>
+                    <text x="450" y="240" class="text-normal">Data Map</text>
+
+                    <!-- Process 3: Local Storage Writer -->
+                    <circle cx="650" cy="130" r="45" class="node-circle" />
+                    <text x="650" y="125" class="text-header">1.3</text>
+                    <text x="650" y="140" class="text-normal">Write / Save</text>
+
+                    <!-- Process 4: Session Generator -->
+                    <circle cx="650" cy="330" r="45" class="node-circle" />
+                    <text x="650" y="325" class="text-header">1.4</text>
+                    <text x="650" y="340" class="text-normal">Session Init</text>
+
+                    <!-- Data Store -->
+                    <rect x="820" y="200" width="160" height="60" class="node-data" />
+                    <text x="900" y="235" class="text-header" style="fill:var(--secondary);">LS_DB_v2026</text>
+
+                    <!-- Flows -->
+                    <path d="M140,230 L205,230" class="arrow-line" />
+                    <text x="172" y="220" class="text-tiny">Raw Input</text>
+
+                    <path d="M295,230 L405,230" class="arrow-line" />
+                    <text x="350" y="220" class="text-tiny">Validated Object</text>
+
+                    <path d="M495,210 L605,150" class="arrow-line" />
+                    <text x="550" y="170" class="text-tiny">JSON Stringify</text>
+
+                    <path d="M495,250 L605,310" class="arrow-line" />
+                    <text x="550" y="295" class="text-tiny">Auth Key</text>
+
+                    <path d="M695,130 L850,200" class="arrow-line" />
+                    <path d="M695,330 L850,260" class="arrow-line" />
+                    <text x="770" y="160" class="text-tiny">Commit to Disk</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 2. HIGH-FIDELITY ENHANCED ER MODEL -->
+        <div class="section">
+            <div class="section-header">
+                <h2>2. Comprehensive Entity-Relationship Model (ERD)</h2>
+                <div class="line"></div>
+            </div>
+            <p class="section-desc">This model defines the core data architecture, illustrating 1:N cardinalities and
+                the relational mapping between system actors and transactional data stores.</p>
+            <div class="diagram-box">
+                <svg viewBox="0 0 1000 600">
+                    <!-- Entity: Participant (Strong Entity) -->
+                    <rect x="50" y="200" width="180" height="80" class="node-rect"
+                        style="stroke:var(--secondary); stroke-width:3;" />
+                    <text x="140" y="245" class="text-header" style="font-size:18px;">PARTICIPANT</text>
+
+                    <!-- Attributes for Participant -->
+                    <ellipse cx="60" cy="80" rx="55" ry="25" class="node-rect" />
+                    <text x="60" y="85" class="text-normal">Full_Name</text>
+
+                    <ellipse cx="140" cy="50" rx="60" ry="28" class="node-rect" style="stroke:var(--primary);" />
+                    <text x="140" y="55" class="text-header" style="fill:var(--primary); font-size:11px;">Email
+                        (PK)</text>
+
+                    <ellipse cx="230" cy="80" rx="55" ry="25" class="node-rect" />
+                    <text x="230" y="85" class="text-normal">Age_Group</text>
+
+                    <ellipse cx="280" cy="240" rx="55" ry="25" class="node-rect" />
+                    <text x="280" y="245" class="text-normal">Gender</text>
+
+                    <!-- Relation: Registration (1:N) -->
+                    <polygon points="450,200 520,240 450,280 380,240" class="node-diamond" />
+                    <text x="450" y="245" class="text-header" style="font-size: 11px;">PERFORMS</text>
+
+                    <!-- Cardinality Labels -->
+                    <text x="250" y="230" class="text-header" style="fill:var(--secondary);">1</text>
+                    <text x="360" y="230" class="text-header" style="fill:var(--secondary);">N</text>
+
+                    <!-- Entity: Event (Strong Entity) -->
+                    <rect x="750" y="200" width="180" height="80" class="node-rect"
+                        style="stroke:var(--secondary); stroke-width:3;" />
+                    <text x="840" y="245" class="text-header" style="font-size:18px;">EVENT</text>
+
+                    <!-- Attributes for Event -->
+                    <ellipse cx="840" cy="80" rx="60" ry="28" class="node-rect" />
+                    <text x="840" y="85" class="text-normal">Race_Type</text>
+
+                    <ellipse cx="930" cy="140" rx="50" ry="25" class="node-rect" />
+                    <text x="930" y="145" class="text-tiny">Location</text>
+
+                    <!-- Weak Entity: Ticket / Receipt (Double Border Effect) -->
+                    <rect x="400" y="380" width="140" height="70" class="node-rect"
+                        style="stroke-width:4; stroke:#555;" />
+                    <rect x="405" y="385" width="130" height="60" class="node-rect" style="stroke:var(--accent);" />
+                    <text x="470" y="415" class="text-header"
+                        style="font-size:14px; fill:var(--accent);">TICKET_RECEIPT</text>
+                    <text x="470" y="435" class="text-tiny">(Weak Entity)</text>
+
+                    <!-- Admin Relation -->
+                    <rect x="750" y="450" width="160" height="60" class="node-rect" />
+                    <text x="830" y="485" class="text-header">ADMIN_LOG</text>
+
+                    <polygon points="650,450 700,480 650,510 600,480" class="node-diamond" />
+                    <text x="650" y="485" class="text-header" style="font-size:10px;">TRACKS</text>
+
+                    <!-- Connectors -->
+                    <!-- Participant to Attributes -->
+                    <line x1="140" y1="200" x2="60" y2="105" class="arrow-line" style="marker-end:none; stroke:#444;" />
+                    <line x1="140" y1="200" x2="140" y2="78" class="arrow-line" style="marker-end:none; stroke:#444;" />
+                    <line x1="140" y1="200" x2="230" y2="105" class="arrow-line"
+                        style="marker-end:none; stroke:#444;" />
+                    <line x1="230" y1="240" x2="250" y2="240" class="arrow-line"
+                        style="marker-end:none; stroke:#444;" />
+
+                    <!-- Main Flow -->
+                    <line x1="230" y1="240" x2="380" y2="240" class="arrow-line" style="marker-end:none;" />
+                    <line x1="520" y1="240" x2="750" y2="240" class="arrow-line" style="marker-end:none;" />
+
+                    <!-- Ticket Link -->
+                    <line x1="450" y1="280" x2="450" y2="380" class="arrow-line" style="stroke-dasharray:4;" />
+                    <text x="420" y="330" class="text-tiny">Generates</text>
+
+                    <!-- Admin Link -->
+                    <line x1="470" y1="450" x2="600" y2="487" class="arrow-line" style="marker-end:none;" />
+                    <line x1="700" y1="480" x2="750" y2="480" class="arrow-line" style="marker-end:none;" />
+
+                    <!-- Event Details -->
+                    <line x1="840" y1="200" x2="840" y2="108" class="arrow-line"
+                        style="marker-end:none; stroke:#444;" />
+                    <line x1="840" y1="200" x2="930" y2="165" class="arrow-line"
+                        style="marker-end:none; stroke:#444;" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- 3. SYSTEM INTERACTION SEQUENCE -->
+        <div class="section">
+            <div class="section-header">
+                <h2>3. System Interaction Sequence</h2>
+                <div class="line"></div>
+            </div>
+            <p class="section-desc">The following sequence diagram provides a timeline of the data-handshake between the
+                Browser (Client), JavaScript logic modules, and the persistent storage layer.</p>
+            <div class="diagram-box">
+                <svg viewBox="0 0 1000 400">
+                    <!-- Lifelines -->
+                    <line x1="150" y1="50" x2="150" y2="380" style="stroke:#333; stroke-dasharray:5;" />
+                    <line x1="500" y1="50" x2="500" y2="380" style="stroke:#333; stroke-dasharray:5;" />
+                    <line x1="850" y1="50" x2="850" y2="380" style="stroke:#333; stroke-dasharray:5;" />
+
+                    <rect x="75" y="10" width="150" height="40" class="node-rect" />
+                    <text x="150" y="35" class="text-header">USER BROWSER</text>
+
+                    <rect x="425" y="10" width="150" height="40" class="node-rect" style="stroke:var(--secondary);" />
+                    <text x="500" y="35" class="text-header">APP LOGIC (JS)</text>
+
+                    <rect x="775" y="10" width="150" height="40" class="node-rect" />
+                    <text x="850" y="35" class="text-header">LOCALSTORAGE</text>
+
+                    <!-- Messaging -->
+                    <path d="M150,100 L500,100" class="arrow-line" />
+                    <text x="325" y="90" class="text-tiny">SubmitForm(evt.payload)</text>
+
+                    <path d="M500,150 L850,150" class="arrow-line" />
+                    <text x="675" y="140" class="text-tiny">setItem("marathon_db", data)</text>
+
+                    <path d="M850,200 L500,200" class="arrow-line" style="stroke-dasharray:3;" />
+                    <text x="675" y="190" class="text-tiny">Storage Confirmation</text>
+
+                    <path d="M500,250 L150,250" class="arrow-line" style="stroke:var(--secondary);" />
+                    <text x="325" y="240" class="text-tiny">Redirect(success.html)</text>
+
+                    <!-- Activation Boxes -->
+                    <rect x="495" y="100" width="10" height="150" fill="var(--secondary)" opacity="0.4" />
+                    <rect x="845" y="150" width="10" height="50" fill="var(--primary)" opacity="0.4" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- TECHNICAL SUMMARY FOR STAFF -->
+        <div class="technical-grid">
+            <div class="tech-card">
+                <h3>Data Normalization</h3>
+                <p>Ensures that every participant entry is filtered through Process 1.1 before serialization. This
+                    maintains data integrity across the LS_DB repository.</p>
+            </div>
+            <div class="tech-card">
+                <h3>Scalability & Latency</h3>
+                <p>By utilizing client-side indexing (Process 1.2), the system achieves near-zero latency for admin
+                    queries and report generation cycles.</p>
+            </div>
+            <div class="tech-card">
+                <h3>Persistence Layer</h3>
+                <p>The system implements synchronous commit logic (Sequence Diagram) to prevent data race conditions
+                    during peak registration hours.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="text-align:center; padding: 2rem; color: #444; font-size: 0.8rem; margin-top: 4rem;">
+        &copy; 2026 Tamil Marathon Systems Architecture Group | Confidential Technical Documentation
+    </div>
+
+</body>
+
+</html>
