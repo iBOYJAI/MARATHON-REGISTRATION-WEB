@@ -499,11 +499,12 @@ The "Premium" aesthetic is driven by a custom set of CSS variables that ensure c
 }
 ```
 
-#### A2. Screen: Home Page & Event Countdown
-The Home Page serves as the high-impact entry point.
--   **Visual Layout:** A full-screen parallax background image of a runner at dusk, overlaid with a dark gradient `(rgba(10,10,10,0.7) to transparent)`.
--   **Core Component:** The **Neon Countdown Timer**. It features four distinct glass-cards (Days, Hours, Mins, Secs).
--   **Glow Effect:** The `time-val` uses `text-shadow: 0 0 10px var(--secondary-glow)` to create a futuristic digital clock effect.
+#### A2. Screen: Login Portal / Entry Selector (`index.html`)
+The entry point of the application features a clean dual-portal selection screen. Users choose between the Admin Portal (Organizers & Staff) or User Portal (Participants & Runners). The design uses a dark glassmorphism card overlay on a blurred background.
+
+**Screenshot: Portal Selector Screen**
+
+![Portal Selector - Tamil Marathon 2026](screenshots/screenshot_portal.png)
 
 #### A3. Screen: Registration Portal (`register.html`)
 Designed for maximum conversion and speed.
@@ -511,10 +512,18 @@ Designed for maximum conversion and speed.
 -   **Input Fields:** Ghost-style inputs with `border: 1px solid var(--glass-border)`. On focus, the border transitions to neon cyan with a soft glow.
 -   **Submit Button:** A custom-clipped `btn-neon` with a `clip-path` polygon shape, creating an aerodynamic, sporty appearance.
 
+**Screenshot: Registration Form**
+
+![Registration Portal - Tamil Marathon 2026](screenshots/screenshot_register.png)
+
 #### A4. Screen: Admin Control Center (`admin-dashboard.html`)
 A data-heavy environment that remains clean and manageable.
--   **Stats Grid:** Four cards displaying real-time aggregates. Each card has a `transition: 0.3s` that increases the glow and lifts the card slightly when hovered.
+-   **Stats Grid:** Four cards displaying real-time aggregates (Total Registrations, Full Marathon, Half Marathon, 5K & 10K). Each card has a `transition: 0.3s` that increases the glow and lifts the card slightly when hovered.
 -   **Data Table:** A semi-transparent table with alternating row highlights. The "Actions" column features glowing icons for Edit (Yellow/Gold) and Delete (Red/Crimson).
+
+**Screenshot: Admin Dashboard**
+
+![Admin Dashboard - Tamil Marathon 2026](screenshots/screenshot_admin.png)
 
 #### A5. Screen: Success Ticket (`success.html`)
 The final participant confirmation.
