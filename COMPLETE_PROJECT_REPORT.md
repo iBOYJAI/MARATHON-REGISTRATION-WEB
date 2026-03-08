@@ -28,6 +28,8 @@
   - 3.2 Entity Relationship Diagram (ERD) (24)
   - 3.3 Database Design and LocalStorage Schema (25)
   - 3.4 File Specifications and Structure (27)
+    - 3.4.1 Database Table Specifications (27)
+    - 3.4.2 File Structure Overview (29)
   - 3.5 Detailed Module Specifications (30)
   - 3.5.1 Authentication (Admin & User) (30)
   - 3.5.2 Registration and Validation (31)
@@ -260,6 +262,13 @@ The system manages a one-to-many relationship between the **Event** and its **Pa
     -   `username` (Default: 'admin')
     -   `password` (Default: 'admin123')
 
+-   **Entity: PAYMENT**
+    -   `pay_id` (Unique ID)
+    -   `runner_email` (Reference Participant)
+    -   `amount` (Numerical)
+    -   `status` (Payment State)
+    -   `timestamp` (Date/Time)
+
 ### 3.3 Database Design and LocalStorage Schema
 
 Unlike SQL tables, our schema is based on a **JSON Document** format.
@@ -285,31 +294,93 @@ This structure allows for high-speed parsing and manipulation using JavaScript's
 
 ### 3.4 File Specifications and Structure
 
-1.  **index.html:** Selector page.
-2.  **home.html:** Main landing with countdown.
-3.  **register.html:** Registration portal.
-4.  **admin-dashboard.html:** Admin control panel.
+The "Tamil Marathon 2026" uses a structured data approach to ensure integrity and performance. Below are the detailed specifications for the primary data entities.
+
+#### 3.4.1 Database Table Specifications
+
+**Table 1: Participant Records (Table Name: `participants`)**
+This table stores all registration details for runners. Each record is uniquely identified by their email address.
+
+| Field Name | Data Type | Size/Constraint | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | VARCHAR | 20 (Unique) | System-generated Runner ID (e.g., runner_171001) |
+| `fullname` | VARCHAR | 100 (NOT NULL) | Full legal name of the participant |
+| `email` | VARCHAR | 100 (PRIMARY KEY) | Verified email address used for login |
+| `age` | INT | Check (10-100) | Age of the participant for medical safety |
+| `category` | VARCHAR | 15 (NOT NULL) | Race category: 5K, 10K, Half, or Full Marathon |
+| `gender` | VARCHAR | 10 (NOT NULL) | Participant gender for heat categorization |
+| `timestamp` | DATETIME | DEFAULT Now() | The exact date and time of registration |
+
+**Table 2: Administrative Access (Table Name: `admins`)**
+This table contains the credentials for personnel authorized to manage the marathon event.
+
+| Field Name | Data Type | Size/Constraint | Description |
+| :--- | :--- | :--- | :--- |
+| `username` | VARCHAR | 50 (PRIMARY KEY) | Unique login name for administrators |
+| `password` | VARCHAR | 100 (NOT NULL) | Hashed password for secure access control |
+| `role` | VARCHAR | 20 | Specified permission level (e.g., SuperAdmin, Staff) |
+
+**Table 3: Payment Tracking (Table Name: `payments`)**
+Used for financial reconciliation and tracking registration fee statuses.
+
+| Field Name | Data Type | Size/Constraint | Description |
+| :--- | :--- | :--- | :--- |
+| `pay_id` | VARCHAR | 20 (PRIMARY KEY) | Unique Transaction ID from the payment gateway |
+| `runner_email` | VARCHAR | 100 (FK) | Reference to the participant email |
+| `amount` | DECIMAL | 10, 2 | Total fee paid for the selected race category |
+| `status` | VARCHAR | 20 | Current state: 'Success', 'Pending', or 'Failed' |
+| `method` | VARCHAR | 30 | Payment method (e.g., UPI, Card, Net Banking) |
+
+#### 3.4.2 File Structure Overview
+1.  **index.html:** Selector page for User/Admin entry.
+2.  **home.html:** Main landing with countdown and event info.
+3.  **register.html:** Registration portal for new participants.
+4.  **admin-dashboard.html:** Admin control panel for data management.
 5.  **admin-login.html:** Secure login for admins.
-6.  **user-dashboard.html:** Personal user area.
-7.  **user-login.html:** Participant login.
-8.  **success.html:** Ticket generation page.
-9.  **app.js:** Core application logic.
-10. **index.css:** Global design system.
+6.  **user-dashboard.html:** Personal area for registered runners.
+7.  **user-login.html:** Participant login page.
+8.  **success.html:** Ticket generation and confirmation page.
+9.  **app.js:** Core application logic (Modular JavaScript).
+10. **index.css:** Global design system and premium styling.
 
 ### 3.5 Detailed Module Specifications
 
 #### 3.5.1 Authentication (Admin & User)
--   **Admin Logic:** Uses a hardcoded check (Simulating a database) and stores a flag in `SessionStorage`.
--   **User Logic:** Checks if the user's email exists in the `LocalStorage` registration array.
+The authentication system is designed to provide secure, role-based access to different parts of the application without the need for a back-end server.
+
+-   **Admin Authentication Flow:**
+    -   When an administrator attempts to log in, the system verifies the entered `username` and `password` against predefined constants.
+    -   Upon a successful match, a session token (flag) is stored in `SessionStorage`.
+    -   **Session Management:** `SessionStorage` is chosen because it persists only for the duration of the page session (tab), ensuring that sensitive access is automatically revoked when the browser tab is closed.
+    -   **Redirect Logic:** Every admin-shielded page includes a script that checks for this session flag. If missing, the user is immediately redirected to `admin-login.html`.
+
+-   **User Login (Runner Access):**
+    -   Participants log in using their registered email.
+    -   The system parses the `marathon_registrations_2026` array from `LocalStorage` and uses the `.find()` method to locate the matching record.
+    -   If found, the attendee's email is stored in `SessionStorage`, allowing the dashboard to filter and display only their specific registration details.
 
 #### 3.5.2 Registration and Validation
--   Includes regex-based email validation.
--   Age-range enforcement (Ensuring medical safety of runners).
--   Duplicate prevention logic.
+The registration module acts as the "Gatekeeper" for data integrity. It ensures that only clean, valid, and unique data enters the storage.
+
+-   **Input Sanitization:** Before processing, all string inputs are passed through the `.trim()` function to remove leading and trailing whitespace, preventing errors in search and display.
+-   **Regex-based Validation:** 
+    -   Emails are validated using a custom Regular Expression pattern `(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)` to ensure standard syntax.
+    -   Full names are checked to ensure they contain only alphabetic characters and spaces.
+-   **Logic Constraints:**
+    -   **Age Enforcement:** A conditional check `(age >= 10 && age <= 100)` is performed to comply with the marathon's safety regulations and insurance requirements.
+    -   **Duplicate Prevention:** Before saving a new registration, the system iterates through the existing database to ensure the email is not already present, returning an error message if a conflict is found.
+-   **Data Storage Transaction:** The save process follows a strict "Parse→Push→Stringify" pipeline to ensure `LocalStorage` remains a valid, corruption-free JSON document.
 
 #### 3.5.3 Real-time Statistics Engine
--   Iterates through arrays using `.forEach()`.
--   Dynamically updates the `innerText` of dashboard elements without requiring a page reload.
+The statistics engine provides immediate feedback to organizers by transforming raw registration data into meaningful insights.
+
+-   **Data Aggregation Algorithm:** 
+    -   The engine retrieves the entire registration array from persistent storage.
+    -   It uses functional programming methods like `.filter()` and `.length` to calculate specific counts (e.g., Total 5K runners, Total Female participants).
+-   **Dynamic UI Sync:** 
+    -   Instead of refreshing the entire page, the engine targets specific DOM elements via their `id`.
+    -   It utilizes **Template Literals** to construct HTML fragments dynamically based on the current data state.
+    -   The update cycle is optimized via the `innerText` property for text and `innerHTML` for table rows, ensuring the browser renders only the changed values, maintaining a high-performance user experience.
 
 ---
 
@@ -412,26 +483,43 @@ The "Tamil Marathon 2026" system successfully digitizes the marathon management 
 
 ### APPENDIX – A (SCREEN FORMATS AND UI WALKTHROUGH)
 
-#### A1. Navigation System
-The navigation system is designed to be persistent. It uses a "Glassy" background that becomes more opaque when the user scrolls down, ensuring readability against dynamic background images.
+The "Tamil Marathon 2026" interface is built on a **Luminous Glassmorphism** design system. Below is a detailed technical and visual breakdown of the primary screens.
 
-#### A2. Parallax Backgrounds
-We utilized parallax background effects using the following CSS:
+#### A1. Global Design System (CSS Tokens)
+The "Premium" aesthetic is driven by a custom set of CSS variables that ensure consistency in color, glow, and transparency.
+
 ```css
-.parallax-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: -2;
-  background-attachment: fixed;
-  background-size: cover;
+:root {
+  --primary: #ff4d00;      /* Neon Orange */
+  --secondary: #00e5ff;    /* Cyber Cyan */
+  --dark-bg: #0a0a0a;      /* Deep Midnight */
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --backdrop: 20px;        /* Blur Intensity */
 }
 ```
 
-#### A3. Stats Card Grid
-The admin dashboard features stats cards that glow when hovered. This is achieved using `box-shadow` and `transition`.
+#### A2. Screen: Home Page & Event Countdown
+The Home Page serves as the high-impact entry point.
+-   **Visual Layout:** A full-screen parallax background image of a runner at dusk, overlaid with a dark gradient `(rgba(10,10,10,0.7) to transparent)`.
+-   **Core Component:** The **Neon Countdown Timer**. It features four distinct glass-cards (Days, Hours, Mins, Secs).
+-   **Glow Effect:** The `time-val` uses `text-shadow: 0 0 10px var(--secondary-glow)` to create a futuristic digital clock effect.
+
+#### A3. Screen: Registration Portal (`register.html`)
+Designed for maximum conversion and speed.
+-   **Form Structure:** A centered `glass-form` panel with `backdrop-filter: blur(15px)`.
+-   **Input Fields:** Ghost-style inputs with `border: 1px solid var(--glass-border)`. On focus, the border transitions to neon cyan with a soft glow.
+-   **Submit Button:** A custom-clipped `btn-neon` with a `clip-path` polygon shape, creating an aerodynamic, sporty appearance.
+
+#### A4. Screen: Admin Control Center (`admin-dashboard.html`)
+A data-heavy environment that remains clean and manageable.
+-   **Stats Grid:** Four cards displaying real-time aggregates. Each card has a `transition: 0.3s` that increases the glow and lifts the card slightly when hovered.
+-   **Data Table:** A semi-transparent table with alternating row highlights. The "Actions" column features glowing icons for Edit (Yellow/Gold) and Delete (Red/Crimson).
+
+#### A5. Screen: Success Ticket (`success.html`)
+The final participant confirmation.
+-   **Card Design:** A horizontal "Bib-style" card featuring the runner's unique ID and name.
+-   **Interactive Element:** A glowing QR code (simulated) and a 'Print Ticket' button that uses CSS media queries `@media print` to ensure a clean white-background copy for physical printing.
 
 ### APPENDIX – B (USER MANUAL AND PROCEDURES)
 
@@ -850,6 +938,16 @@ CREATE TABLE admins (
     admin_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE payments (
+    pay_id VARCHAR(20) PRIMARY KEY,
+    runner_email VARCHAR(100) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    method VARCHAR(30),
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (runner_email) REFERENCES participants(email)
 );
 
 -- Indexing for high-speed searches
