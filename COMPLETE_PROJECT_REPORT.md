@@ -485,67 +485,45 @@ The "Tamil Marathon 2026" system successfully digitizes the marathon management 
 
 The "Tamil Marathon 2026" interface is built on a **Luminous Glassmorphism** design system. Below is a detailed technical and visual breakdown of the primary screens.
 
-#### A1. Global Design System (CSS Tokens)
-The "Premium" aesthetic is driven by a custom set of CSS variables that ensure consistency in color, glow, and transparency.
-
-```css
-:root {
-  --primary: #ff4d00;      /* Neon Orange */
-  --secondary: #00e5ff;    /* Cyber Cyan */
-  --dark-bg: #0a0a0a;      /* Deep Midnight */
-  --glass: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --backdrop: 20px;        /* Blur Intensity */
-}
-```
-
-#### A2. SCREEN: LOGIN PORTAL / ENTRY SELECTOR (`INDEX.HTML`)
-
-**Screenshot: Portal Selector Screen**
+#### A1. PORTAL SELECTOR SCREEN (`INDEX.HTML`)
 
 ![Portal Selector - Tamil Marathon 2026](screenshots/screenshot_portal.png)
 
-#### A3. SCREEN: REGISTRATION PORTAL (`REGISTER.HTML`)
 
-**Screenshot: Registration Form**
+#### A2. REGISTRATION PORTAL (`REGISTER.HTML`)
 
 ![Registration Portal - Tamil Marathon 2026](screenshots/screenshot_register.png)
 
-#### A4. SCREEN: ADMIN CONTROL CENTER (`ADMIN-DASHBOARD.HTML`)
 
-**Screenshot: Admin Dashboard**
+#### A3. ADMIN CONTROL CENTER (`ADMIN-DASHBOARD.HTML`)
 
 ![Admin Dashboard - Tamil Marathon 2026](screenshots/screenshot_admin.png)
 
-#### A5. SCREEN: SUCCESS TICKET (`SUCCESS.HTML`)
 
-**Screenshot: Success Ticket (Entry Pass)**
+#### A4. SUCCESS TICKET (`SUCCESS.HTML`)
 
 ![Success Ticket - Tamil Marathon 2026](screenshots/screenshot_success.png)
 
-#### A6. SCREEN: HOME / LANDING PAGE (`HOME.HTML`)
 
-**Screenshot: Home / Landing Page**
+#### A5. HOME / LANDING PAGE (`HOME.HTML`)
 
 ![Home Page - Tamil Marathon 2026](screenshots/screenshot_home.png)
 
-#### A7. SCREEN: ADMIN LOGIN (`ADMIN-LOGIN.HTML`)
 
-**Screenshot: Admin Login Page**
+#### A6. ADMIN LOGIN (`ADMIN-LOGIN.HTML`)
 
 ![Admin Login - Tamil Marathon 2026](screenshots/screenshot_admin_login.png)
 
-#### A8. SCREEN: USER / RUNNER LOGIN (`USER-LOGIN.HTML`)
 
-**Screenshot: User Login Page**
+#### A7. USER LOGIN (`USER-LOGIN.HTML`)
 
 ![User Login - Tamil Marathon 2026](screenshots/screenshot_user_login.png)
 
-#### A9. SCREEN: USER DASHBOARD (`USER-DASHBOARD.HTML`)
 
-**Screenshot: User Dashboard**
+#### A8. USER DASHBOARD (`USER-DASHBOARD.HTML`)
 
 ![User Dashboard - Tamil Marathon 2026](screenshots/screenshot_user_dashboard.png)
+
 
 ### APPENDIX – B (USER MANUAL AND PROCEDURES)
 
