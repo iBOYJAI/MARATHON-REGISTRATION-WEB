@@ -499,36 +499,53 @@ The "Premium" aesthetic is driven by a custom set of CSS variables that ensure c
 }
 ```
 
-#### A2. Screen: Login Portal / Entry Selector (`index.html`)
-The entry point of the application features a clean dual-portal selection screen. Users choose between the Admin Portal (Organizers & Staff) or User Portal (Participants & Runners). The design uses a dark glassmorphism card overlay on a blurred background.
+#### A2. SCREEN: LOGIN PORTAL / ENTRY SELECTOR (`INDEX.HTML`)
 
 **Screenshot: Portal Selector Screen**
 
 ![Portal Selector - Tamil Marathon 2026](screenshots/screenshot_portal.png)
 
-#### A3. Screen: Registration Portal (`register.html`)
-Designed for maximum conversion and speed.
--   **Form Structure:** A centered `glass-form` panel with `backdrop-filter: blur(15px)`.
--   **Input Fields:** Ghost-style inputs with `border: 1px solid var(--glass-border)`. On focus, the border transitions to neon cyan with a soft glow.
--   **Submit Button:** A custom-clipped `btn-neon` with a `clip-path` polygon shape, creating an aerodynamic, sporty appearance.
+#### A3. SCREEN: REGISTRATION PORTAL (`REGISTER.HTML`)
 
 **Screenshot: Registration Form**
 
 ![Registration Portal - Tamil Marathon 2026](screenshots/screenshot_register.png)
 
-#### A4. Screen: Admin Control Center (`admin-dashboard.html`)
-A data-heavy environment that remains clean and manageable.
--   **Stats Grid:** Four cards displaying real-time aggregates (Total Registrations, Full Marathon, Half Marathon, 5K & 10K). Each card has a `transition: 0.3s` that increases the glow and lifts the card slightly when hovered.
--   **Data Table:** A semi-transparent table with alternating row highlights. The "Actions" column features glowing icons for Edit (Yellow/Gold) and Delete (Red/Crimson).
+#### A4. SCREEN: ADMIN CONTROL CENTER (`ADMIN-DASHBOARD.HTML`)
 
 **Screenshot: Admin Dashboard**
 
 ![Admin Dashboard - Tamil Marathon 2026](screenshots/screenshot_admin.png)
 
-#### A5. Screen: Success Ticket (`success.html`)
-The final participant confirmation.
--   **Card Design:** A horizontal "Bib-style" card featuring the runner's unique ID and name.
--   **Interactive Element:** A glowing QR code (simulated) and a 'Print Ticket' button that uses CSS media queries `@media print` to ensure a clean white-background copy for physical printing.
+#### A5. SCREEN: SUCCESS TICKET (`SUCCESS.HTML`)
+
+**Screenshot: Success Ticket (Entry Pass)**
+
+![Success Ticket - Tamil Marathon 2026](screenshots/screenshot_success.png)
+
+#### A6. SCREEN: HOME / LANDING PAGE (`HOME.HTML`)
+
+**Screenshot: Home / Landing Page**
+
+![Home Page - Tamil Marathon 2026](screenshots/screenshot_home.png)
+
+#### A7. SCREEN: ADMIN LOGIN (`ADMIN-LOGIN.HTML`)
+
+**Screenshot: Admin Login Page**
+
+![Admin Login - Tamil Marathon 2026](screenshots/screenshot_admin_login.png)
+
+#### A8. SCREEN: USER / RUNNER LOGIN (`USER-LOGIN.HTML`)
+
+**Screenshot: User Login Page**
+
+![User Login - Tamil Marathon 2026](screenshots/screenshot_user_login.png)
+
+#### A9. SCREEN: USER DASHBOARD (`USER-DASHBOARD.HTML`)
+
+**Screenshot: User Dashboard**
+
+![User Dashboard - Tamil Marathon 2026](screenshots/screenshot_user_dashboard.png)
 
 ### APPENDIX – B (USER MANUAL AND PROCEDURES)
 
@@ -541,7 +558,34 @@ The final participant confirmation.
 6.  Click **Confirm Registration**.
 7.  A success message will appear, and you will be redirected to your **Success Ticket**.
 
-#### B2. How to Manage Data (For Admins)
+**Registration Form (Step 3-6):**
+
+![Registration Portal - Tamil Marathon 2026](screenshots/screenshot_register.png)
+
+**Your Official Entry Ticket (Step 7):**
+
+![Success Ticket - Tamil Marathon 2026](screenshots/screenshot_success.png)
+
+#### B2. How to Access Your Runner Dashboard
+1.  Navigate to the **Login Portal** (`index.html`).
+2.  Select **User Login**.
+3.  Enter your registered **Email Address**.
+4.  Click **Access My Dashboard**.
+5.  Your personalized runner dashboard will load with your registration details.
+
+**Portal Selector (Step 1):**
+
+![Portal Selector - Tamil Marathon 2026](screenshots/screenshot_portal.png)
+
+**User Login Screen (Step 2-3):**
+
+![User Login - Tamil Marathon 2026](screenshots/screenshot_user_login.png)
+
+**Runner Dashboard (Step 5):**
+
+![User Dashboard - Tamil Marathon 2026](screenshots/screenshot_user_dashboard.png)
+
+#### B3. How to Manage Data (For Admins)
 1.  Navigate to the **Login Portal**.
 2.  Select **Admin Login**.
 3.  Enter the authorized credentials.
@@ -550,6 +594,14 @@ The final participant confirmation.
 6.  To **Edit** a record: Click the Pencil icon, modify details in the modal, and Save.
 7.  To **Delete** a record: Click the Trash icon and confirm the deletion.
 8.  To **Export**: Click the 'Print Report' button for a clean physical copy.
+
+**Admin Login (Step 2-3):**
+
+![Admin Login - Tamil Marathon 2026](screenshots/screenshot_admin_login.png)
+
+**Admin Control Center (Step 4-8):**
+
+![Admin Dashboard - Tamil Marathon 2026](screenshots/screenshot_admin.png)
 
 ### APPENDIX – C (COMPLETE SOURCE CODE LISTINGS)
 
